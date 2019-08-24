@@ -17,6 +17,7 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static String folderPath, searchText, fileType;
+    public static String selectedFile = "";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -103,16 +104,26 @@ public class Main extends Application {
                     }
                     else {
                         setText(item.getName());
+                        setStyle("-fx-color: black;");
                     }
                 }
             }
         });
 
-        /*tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                System.out.println(newValue.getValue());
+                //System.out.println(newValue.getValue());
+
+                if (newValue.getValue().getCheck()) {
+                    String fullPath = newValue.getValue().getName();
+                    while (newValue.getParent() != null) {
+                        newValue = newValue.getParent();
+                        fullPath = newValue.getValue().getName() + "\\" + fullPath;
+                    }
+                    selectedFile = fullPath;
+                }
             }
-        });*/
+        });
     }
 
     public static void main(String[] args) {

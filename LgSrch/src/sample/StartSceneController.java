@@ -216,7 +216,7 @@ public class StartSceneController implements Initializable {
         searchCompleted = false;
         pathField.setText(null);
         textField.setText(null);
-        typeField.setText(".txt");
+        typeField.setText(".log");
         tabPaneID.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
         systemTextArea.setEditable(false);
         textAreasArr = new ArrayList<>();

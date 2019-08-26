@@ -1,8 +1,17 @@
 package sample;
 
+import java.util.ArrayList;
+
 public class TreeElement {
     private String name;
     private boolean check;
+    public ArrayList<Integer> patternMatches;
+
+    public TreeElement(String name, boolean check, ArrayList<Integer> patternMatches) {
+        this.name = name;
+        this.check = check;
+        this.patternMatches = patternMatches;
+    }
 
     public TreeElement(String name, boolean check) {
         this.name = name;

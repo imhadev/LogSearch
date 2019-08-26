@@ -26,19 +26,22 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("startScene.fxml"));
-        Scene startScene = new Scene(root, 1000, 800);
+        Scene startScene = new Scene(root, 1000, 900);
         primaryStage.setTitle("LogSearch");
         primaryStage.setScene(startScene);
         primaryStage.show();
     }
 
     public static TreeItem<TreeElement> SearchFiles() {
-        rootItemMain = new TreeItem<>(new TreeElement(folderPath, false));
-
         final File folder = new File(folderPath);
-        FileWalk(folder, rootItemMain);
-
-        return rootItemMain;
+        if (folder.exists()) {
+            rootItemMain = new TreeItem<>(new TreeElement(folderPath, false));
+            FileWalk(folder, rootItemMain);
+            return rootItemMain;
+        }
+        else {
+            return null;
+        }
     }
 
     public static boolean FileWalk(final File folder, TreeItem<TreeElement> root) {
@@ -133,9 +136,10 @@ public class Main extends Application {
 
         tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                if (newValue.getValue().getCheck()) {
-                    selectedElement = newValue;
-                }
+                selectedElement = newValue;
+            }
+            else {
+                selectedElement = null;
             }
         });
     }

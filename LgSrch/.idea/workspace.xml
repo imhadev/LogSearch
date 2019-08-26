@@ -55,8 +55,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -91,6 +91,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="D:/download/richtextfx-fat-0.10.1.jar!/" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -197,6 +198,7 @@
       <workItem from="1566643302443" duration="20467000" />
       <workItem from="1566733355842" duration="13140000" />
       <workItem from="1566815405898" duration="7601000" />
+      <workItem from="1566844978407" duration="14062000" />
     </task>
     <servers />
   </component>

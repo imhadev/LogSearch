@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TreeElement {
     private String name;
     private boolean check;
-    public ArrayList<Integer> patternMatches;
+    private ArrayList<Integer> patternMatches;
 
     public TreeElement(String name, boolean check, ArrayList<Integer> patternMatches) {
         this.name = name;
@@ -26,11 +26,16 @@ public class TreeElement {
         return check;
     }
 
+    public ArrayList<Integer> getpatternMatches() {
+        return patternMatches;
+    }
+
     @Override
     public String toString() {
         return "TreeElement{" +
-                "name='" + name + '\'' +
-                ", check=" + check +
+                "name=" + name + '\'' +
+                ", check=" + check + '\'' +
+                ", patternMatches=" + patternMatches +
                 '}';
     }
 }

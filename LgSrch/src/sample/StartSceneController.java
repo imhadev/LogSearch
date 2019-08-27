@@ -135,6 +135,11 @@ public class StartSceneController implements Initializable {
         VirtualizedScrollPane vPane = new VirtualizedScrollPane(bigTextArea);
         tab.setContent(vPane);
 
+        tab.setOnClosed(c -> {
+            int selectedTabNum = tabPaneID.getSelectionModel().getSelectedIndex();
+            textAreasArr.remove(selectedTabNum);
+        });
+
         Runnable updater = () -> {
             tabPaneID.getTabs().add(tab);
             fileOpeningThreadsCount--;
@@ -152,6 +157,8 @@ public class StartSceneController implements Initializable {
             TextAreaTab curTextAreaTab = textAreasArr.get(selectedTabNum);
             if (curTextAreaTab.curPosIndex > 0) {
                 curTextAreaTab.curPosIndex--;
+                System.out.println(curTextAreaTab.curPosIndex);
+                System.out.println(curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
                 MoveToPosition(curTextAreaTab.tabTextArea, curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
             }
         }
@@ -163,6 +170,8 @@ public class StartSceneController implements Initializable {
             TextAreaTab curTextAreaTab = textAreasArr.get(selectedTabNum);
             if (curTextAreaTab.curPosIndex < curTextAreaTab.curElementsArray.size() - 1) {
                 curTextAreaTab.curPosIndex++;
+                System.out.println(curTextAreaTab.curPosIndex);
+                System.out.println(curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
                 MoveToPosition(curTextAreaTab.tabTextArea, curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
             }
         }

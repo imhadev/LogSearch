@@ -135,7 +135,7 @@ public class Main extends Application {
         });
 
         tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (newValue.getChildren().size() == 0) {
                 selectedElement = newValue;
             }
             else {

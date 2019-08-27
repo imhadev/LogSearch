@@ -23,7 +23,7 @@ import static sample.Main.*;
 public class StartSceneController implements Initializable {
 
     @FXML
-    public TextField pathField, textField, typeField;
+    private TextField pathField, textField, typeField;
 
     @FXML
     public TreeView<TreeElement> fileTree;
@@ -140,15 +140,16 @@ public class StartSceneController implements Initializable {
             textAreasArr.remove(selectedTabNum);
         });
 
+        selectedElement = null;
+
         Runnable updater = () -> {
+
             tabPaneID.getTabs().add(tab);
             fileOpeningThreadsCount--;
 
             DisplaySystemMessage(7);
         };
         Platform.runLater(updater);
-
-        selectedElement = null;
     }
 
     public void MoveToPrev() {
@@ -157,8 +158,6 @@ public class StartSceneController implements Initializable {
             TextAreaTab curTextAreaTab = textAreasArr.get(selectedTabNum);
             if (curTextAreaTab.curPosIndex > 0) {
                 curTextAreaTab.curPosIndex--;
-                System.out.println(curTextAreaTab.curPosIndex);
-                System.out.println(curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
                 MoveToPosition(curTextAreaTab.tabTextArea, curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
             }
         }
@@ -170,15 +169,13 @@ public class StartSceneController implements Initializable {
             TextAreaTab curTextAreaTab = textAreasArr.get(selectedTabNum);
             if (curTextAreaTab.curPosIndex < curTextAreaTab.curElementsArray.size() - 1) {
                 curTextAreaTab.curPosIndex++;
-                System.out.println(curTextAreaTab.curPosIndex);
-                System.out.println(curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
                 MoveToPosition(curTextAreaTab.tabTextArea, curTextAreaTab.curElementsArray.get(curTextAreaTab.curPosIndex));
             }
         }
     }
 
     public void MoveToPosition(InlineCssTextArea curTextArea, int curPos) {
-        curTextArea.moveTo(curPos);
+        curTextArea.moveTo(curPos + searchText.length());
         curTextArea.requestFollowCaret();
     }
 

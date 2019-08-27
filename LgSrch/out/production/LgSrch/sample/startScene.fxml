@@ -18,6 +18,6 @@
       <TabPane fx:id="tabPaneID" layoutX="322.0" layoutY="14.0" prefHeight="572.0" prefWidth="664.0" tabClosingPolicy="UNAVAILABLE" />
       <Button fx:id="buttonPrev" layoutX="776.0" layoutY="619.0" mnemonicParsing="false" onAction="#MoveToPrev" text="Prev" />
       <Button fx:id="buttonNext" layoutX="827.0" layoutY="619.0" mnemonicParsing="false" onAction="#MoveToNext" text="Next" />
-      <TextArea fx:id="systemTextArea" layoutX="317.0" layoutY="775.0" prefHeight="90.0" prefWidth="369.0" text="app launched" />
+      <TextArea fx:id="systemTextArea" layoutX="317.0" layoutY="775.0" prefHeight="90.0" prefWidth="369.0" text="App launched" />
    </children>
 </AnchorPane>

@@ -40,13 +40,26 @@ public class StartSceneController implements Initializable {
 
     public boolean searchCompleted;
 
+    public enum SysMsg {
+        SEARCH_STARTED,
+        SEARCH_IN_PROCESS,
+        SEARCH_COMPLETED,
+        SEARCH_FIRST,
+        FILL_ALL_FIELDS,
+        SELECT_FILE,
+        OPENING_FILE,
+        FILE_OPENED,
+        FILE_OPENING_IN_PROCESS,
+        INVALID_FILE_PATH
+    }
+
     public void GetFields() {
         if (!searchThread.isAlive()) {
             if (fileOpeningThreadsCount == 0) {
                 if ((pathField.getText() != null) && (textField.getText() != null) && (typeField.getText() != null)) {
                     searchCompleted = false;
 
-                    DisplaySystemMessage(0);
+                    DisplaySystemMessage(SysMsg.SEARCH_STARTED);
 
                     tabPaneID.getTabs().clear();
                     fileTree.setRoot(null);
@@ -58,15 +71,15 @@ public class StartSceneController implements Initializable {
                     searchThread = new Thread(new FileSeacher(this));
                     searchThread.start();
                 } else {
-                    DisplaySystemMessage(4);
+                    DisplaySystemMessage(SysMsg.FILL_ALL_FIELDS);
                 }
             }
             else {
-                DisplaySystemMessage(8);
+                DisplaySystemMessage(SysMsg.FILE_OPENING_IN_PROCESS);
             }
         }
         else {
-            DisplaySystemMessage(1);
+            DisplaySystemMessage(SysMsg.SEARCH_IN_PROCESS);
         }
     }
 
@@ -75,13 +88,13 @@ public class StartSceneController implements Initializable {
 
         Runnable updater = () -> {
             if (rootItem == null) {
-                DisplaySystemMessage(9);
+                DisplaySystemMessage(SysMsg.INVALID_FILE_PATH);
             }
             else {
                 fileTree.setRoot(rootItem);
                 setTreeCellFactory(fileTree);
 
-                DisplaySystemMessage(2);
+                DisplaySystemMessage(SysMsg.SEARCH_COMPLETED);
 
                 searchCompleted = true;
             }
@@ -94,21 +107,21 @@ public class StartSceneController implements Initializable {
         if (!searchThread.isAlive()) {
             if (searchCompleted == true) {
                 if (selectedElement == null) {
-                    DisplaySystemMessage(5);
+                    DisplaySystemMessage(SysMsg.SELECT_FILE);
                 }
                 else {
-                    DisplaySystemMessage(6);
+                    DisplaySystemMessage(SysMsg.OPENING_FILE);
                     fileOpeningThreadsCount++;
                     Thread fileOpeningThread = new Thread(new FIleOpener(this));
                     fileOpeningThread.start();
                 }
             }
             else {
-                DisplaySystemMessage(3);
+                DisplaySystemMessage(SysMsg.SEARCH_FIRST);
             }
         }
         else {
-            DisplaySystemMessage(1);
+            DisplaySystemMessage(SysMsg.SEARCH_IN_PROCESS);
         }
     }
 
@@ -147,7 +160,7 @@ public class StartSceneController implements Initializable {
             tabPaneID.getTabs().add(tab);
             fileOpeningThreadsCount--;
 
-            DisplaySystemMessage(7);
+            DisplaySystemMessage(SysMsg.FILE_OPENED);
         };
         Platform.runLater(updater);
     }
@@ -179,37 +192,37 @@ public class StartSceneController implements Initializable {
         curTextArea.requestFollowCaret();
     }
 
-    public void DisplaySystemMessage(int messageNum) {
+    public void DisplaySystemMessage(SysMsg message) {
         systemTextArea.appendText("\n");
-        switch(messageNum) {
-            case 0:
+        switch(message) {
+            case SEARCH_STARTED:
                 systemTextArea.appendText("Search started");
                 break;
-            case 1:
+            case SEARCH_IN_PROCESS:
                 systemTextArea.appendText("Search in process");
                 break;
-            case 2:
+            case SEARCH_COMPLETED:
                 systemTextArea.appendText("Search completed");
                 break;
-            case 3:
+            case SEARCH_FIRST:
                 systemTextArea.appendText("Search first");
                 break;
-            case 4:
+            case FILL_ALL_FIELDS:
                 systemTextArea.appendText("Fill all fields");
                 break;
-            case 5:
+            case SELECT_FILE:
                 systemTextArea.appendText("Select file");
                 break;
-            case 6:
+            case OPENING_FILE:
                 systemTextArea.appendText("Opening file");
                 break;
-            case 7:
+            case FILE_OPENED:
                 systemTextArea.appendText("File opened");
                 break;
-            case 8:
+            case FILE_OPENING_IN_PROCESS:
                 systemTextArea.appendText("File opening in process");
                 break;
-            case 9:
+            case INVALID_FILE_PATH:
                 systemTextArea.appendText("Invalid file path");
                 break;
         }
